@@ -50,7 +50,7 @@ dashboardStore.fetchData()
     </div>
     <div class="grid gap-4 grid-cols-2">
       <WidgetComponent
-        v-for="widget in widgetsStore.widgets"
+        v-for="widget in widgetsStore.sortedWidgets"
         :key="widget.id"
         :widget="widget"
         @removeWidget="removeWidget(widget.id)"

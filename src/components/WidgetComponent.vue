@@ -68,7 +68,7 @@ onMounted(async () => {
         <button type="submit">Fetch</button>
       </div>
     </form>
-    <pre>{{ widgetStore.stats }}</pre>
+    <pre class="max-h-32 overflow-auto text-xs">{{ widgetStore.stats }}</pre>
     <button @click="emitRemoveWidget">Remove Widget</button>
   </div>
 </template>

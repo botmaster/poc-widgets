@@ -8,10 +8,17 @@ export const useWidgetsStore = defineStore({
   state: () => ({
     widgets: []
   }),
+  getters: {
+    // Sorted by creation date descending
+    sortedWidgets() {
+      return this.widgets.sort((a, b) => b.createdAt - a.createdAt)
+    }
+  },
   actions: {
     addWidget() {
       const newWidget = {
-        id: Date.now().toString()
+        id: new Date().getTime(),
+        createdAt: new Date().getTime()
       }
       this.widgets.push(newWidget)
     },

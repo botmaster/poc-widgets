@@ -47,10 +47,41 @@ dashboardStore.fetchData()
     <div class="mt-6 mb-4">
       <button @click="addNewWidget">Add Widget</button>
     </div>
-    <ul class="grid gap-4 grid-cols-2">
-      <li v-for="widget in widgetsStore.sortedWidgets" :key="widget.id">
+
+    <TransitionGroup class="relative grid gap-4 grid-cols-2" tag="div" name="group-fade">
+      <section
+        v-for="(widget, index) in widgetsStore.sortedWidgets"
+        :key="widget.id"
+        :style="{ zIndex: widgetsStore.sortedWidgets.length - index }"
+      >
         <WidgetComponent :widget="widget" @removeWidget="removeWidget(widget.id)" />
-      </li>
-    </ul>
+      </section>
+    </TransitionGroup>
   </main>
 </template>
+
+<style scoped>
+/* 1. declare transition */
+.group-fade-move,
+.group-fade-enter-active,
+.group-fade-leave-active {
+  transition:
+    opacity 0.3s cubic-bezier(0.55, 0, 0.1, 1),
+    transform 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.group-fade-enter-from,
+.group-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+  /*transform: translate(-10%, 0);*/
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.group-fade-leave-active {
+  position: absolute;
+  display: none;
+}
+</style>

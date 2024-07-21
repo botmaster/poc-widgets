@@ -18,16 +18,19 @@ function removeWidget(widgetId) {
 }
 
 const formValues = ref({
-  date: ''
+  date: dashboardStore.date
 })
 function submitHandler() {
   console.log('submitHandler')
-  dashboardStore.date = new Date(formValues.value.date)
+  dashboardStore.date = formValues.value.date
 }
 
 const dashboardDate = computed(() => {
-  return dashboardStore.date?.toLocaleDateString() || 'No date selected'
+  return new Date(dashboardStore.date).toLocaleDateString() || 'No date selected'
 })
+
+// Fetch dashboard data
+dashboardStore.fetchData()
 </script>
 
 <template>

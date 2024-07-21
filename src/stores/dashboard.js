@@ -17,5 +17,9 @@ export const useDashboardStore = defineStore({
       // Filter out the widget by its unique identifier
       this.widgets = this.widgets.filter((w) => w.id !== widgetId)
     }
+  },
+  persist: {
+    enabled: true,
+    paths: ['widgets']
   }
 })

@@ -14,7 +14,7 @@ const submitHandler = () => {
   console.log('submitHandler')
   widgetStore.fetchStats({
     type: form.type.value,
-    metric: form.type.value,
+    metric: form.metric.value,
     groupBy: form.groupBy.value
   })
 }
@@ -32,7 +32,10 @@ onMounted(async () => {
 
   // Local form state
   widgetStore.getFields.forEach((field) => {
-    form[field.name] = field
+    form[field.name] = {
+      ...field,
+      value: widgetStore.stats[field.name] || ''
+    }
   })
 
   // Initialiser ou récupérer des données pour le store
@@ -47,11 +50,11 @@ onMounted(async () => {
     </h2>
     <form @submit.prevent="submitHandler">
       <div class="flex flex-wrap gap-2.5">
-        <div class="flex gap-1.5" v-for="(item, index) in form" :key="index">
+        <div class="flex gap-1.5" v-for="item in form" :key="item.name">
           <template v-if="item.type === 'select'">
             <label>{{ item.label }}</label>
             <select v-model="item.value">
-              <option value="">Select an option</option>
+              <option value="" disabled>Select an option</option>
               <option v-for="(option, index) in item.options" :key="index" :value="option.value">
                 {{ option.label }}
               </option>

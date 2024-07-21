@@ -24,7 +24,7 @@ function submitHandler() {
 }
 
 const dashboardDate = computed(() => {
-  return dashboardStore.date.toLocaleDateString()
+  return dashboardStore.date?.toLocaleDateString() || 'No date selected'
 })
 </script>
 

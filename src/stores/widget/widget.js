@@ -56,7 +56,7 @@ export function createDynamicWidgetStore(id) {
           this.types = response.data
         })*/
         // Fake real api call with a timeout
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000))
         this.types = [
           { label: 'Type 1', value: 'type1' },
           { label: 'Type 2', value: 'type2' }
@@ -68,7 +68,7 @@ export function createDynamicWidgetStore(id) {
           this.metrics = response.data
         })*/
         // Fake real api call with a timeout
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000))
         this.metrics = [
           { label: 'Metric 1', value: 'metric1' },
           { label: 'Metric 2', value: 'metric2' }
@@ -80,7 +80,7 @@ export function createDynamicWidgetStore(id) {
           this.groupsBy = response.data
         })*/
         // Fake real api call with a timeout
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000))
         this.groupsBy = [
           { label: 'Group 1', value: 'group1' },
           { label: 'Group 2', value: 'group2' }
@@ -88,6 +88,8 @@ export function createDynamicWidgetStore(id) {
       },
 
       fetchStats(payload) {
+        //
+
         // Fake real api call with a timeout
         return new Promise((resolve) =>
           setTimeout(() => {
@@ -102,9 +104,10 @@ export function createDynamicWidgetStore(id) {
               ]
             }
             resolve()
-          }, 1000)
+          }, Math.random() * 1000)
         )
       }
-    }
+    },
+    persist: true
   })()
 }

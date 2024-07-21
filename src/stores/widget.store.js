@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useDashboardStore } from '@/stores/dashboard.js'
+import { useDashboardStore } from '@/stores/dashboard.store.js'
 //import axios from 'axios'
 
 // Création d'un store avec un ID dynamique

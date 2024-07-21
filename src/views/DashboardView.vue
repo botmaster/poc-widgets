@@ -1,8 +1,8 @@
 <script setup>
 import WidgetComponent from '@/components/WidgetComponent.vue'
-import { useDashboardStore } from '@/stores/dashboard.js'
+import { useDashboardStore } from '@/stores/dashboard.store.js'
 import { computed, ref } from 'vue'
-import { useWidgetsStore } from '@/stores/widgets.js'
+import { useWidgetsStore } from '@/stores/widgets.store.js'
 
 const dashboardStore = useDashboardStore()
 const widgetsStore = useWidgetsStore()

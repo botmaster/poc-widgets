@@ -1,6 +1,6 @@
 <script setup>
-import { createDynamicWidgetStore } from '@/stores/widget/widget'
-import { onMounted, defineProps, reactive } from 'vue'
+import { createDynamicWidgetStore } from '@/stores/widget.store.js'
+import { onMounted, reactive } from 'vue'
 
 const props = defineProps({
   widget: Object
@@ -10,20 +10,7 @@ const widgetStore = createDynamicWidgetStore(
   props.widget?.id ? props.widget.id : Math.random().toString(36).substring(7)
 )
 
-const submitHandler = () => {
-  console.log('submitHandler')
-  widgetStore.fetchStats({
-    type: form.type.value,
-    metric: form.metric.value,
-    groupBy: form.groupBy.value,
-    date: form.date.value
-  })
-}
-
 const emit = defineEmits(['removeWidget'])
-const emitRemoveWidget = () => {
-  emit('removeWidget', widgetStore.id)
-}
 
 const form = reactive({})
 
@@ -37,10 +24,20 @@ onMounted(async () => {
       ...field
     }
   })
-
-  // Initialiser ou récupérer des données pour le store
-  // widgetStore.updateStats({ count: Math.floor(Math.random() * 100) });
 })
+
+const submitHandler = () => {
+  widgetStore.fetchStats({
+    type: form.type.value,
+    metric: form.metric.value,
+    groupBy: form.groupBy.value,
+    date: form.date.value
+  })
+}
+
+const clickRemoveHandler = () => {
+  emit('removeWidget', widgetStore.id)
+}
 </script>
 
 <template>
@@ -69,7 +66,7 @@ onMounted(async () => {
       </div>
     </form>
     <pre class="max-h-32 overflow-auto text-xs">{{ widgetStore.stats }}</pre>
-    <button @click="emitRemoveWidget">Remove Widget</button>
+    <button @click="clickRemoveHandler">Remove Widget</button>
   </div>
 </template>
 

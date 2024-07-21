@@ -2,17 +2,19 @@
 import WidgetComponent from '@/components/WidgetComponent.vue'
 import { useDashboardStore } from '@/stores/dashboard.js'
 import { computed, ref } from 'vue'
+import { useWidgetsStore } from '@/stores/widgets.js'
 
 const dashboardStore = useDashboardStore()
+const widgetsStore = useWidgetsStore()
 
 // Example function to add a widget
 function addNewWidget() {
-  dashboardStore.addWidget()
+  widgetsStore.addWidget()
 }
 
 // Example function to remove a widget
 function removeWidget(widgetId) {
-  dashboardStore.removeWidget(widgetId)
+  widgetsStore.removeWidget(widgetId)
 }
 
 const formValues = ref({
@@ -45,7 +47,7 @@ const dashboardDate = computed(() => {
     </div>
     <div class="grid gap-4 grid-cols-2">
       <WidgetComponent
-        v-for="widget in dashboardStore.widgets"
+        v-for="widget in widgetsStore.widgets"
         :key="widget.id"
         :widget="widget"
         @removeWidget="removeWidget(widget.id)"

@@ -1,6 +1,7 @@
 <script setup>
 import { createDynamicWidgetStore } from '@/stores/widget.store.js'
 import { onMounted, reactive } from 'vue'
+import WidgetSelectionComponent from '@/components/WidgetSelectionComponent.vue'
 
 const props = defineProps({
   widget: Object
@@ -41,32 +42,22 @@ const clickRemoveHandler = () => {
 </script>
 
 <template>
-  <div class="bg-blue-100 px-2 py-1.5 rounded aspect-video">
-    <h2 class="flex">
-      <span class="mr-auto">WidgetComponent</span> <span>{{ props.widget.id }}</span>
-    </h2>
-    <form @submit.prevent="submitHandler">
-      <div class="flex flex-wrap gap-2.5">
-        <div class="flex gap-1.5" v-for="item in form" :key="item.name">
-          <template v-if="item.type === 'select'">
-            <label>{{ item.label }}</label>
-            <select v-model="item.value">
-              <option value="" disabled>Select an option</option>
-              <option v-for="(option, index) in item.options" :key="index" :value="option.value">
-                {{ option.label }}
-              </option>
-            </select>
-          </template>
-          <template v-else>
-            <label>{{ item.label }}</label>
-            <input :type="item.type" v-model="item.value" />
-          </template>
-        </div>
-        <button type="submit">Fetch</button>
-      </div>
-    </form>
-    <pre class="max-h-32 overflow-auto text-xs">{{ widgetStore.stats }}</pre>
-    <button @click="clickRemoveHandler">Remove Widget</button>
+  <div class="bg-blue-100 px-4 py-2.5 rounded aspect-video overflow-hidden flex flex-col">
+    <div class="text-xs flex justify-end">
+      <button @click="clickRemoveHandler">X</button>
+    </div>
+    <div>
+      <WidgetSelectionComponent :model-value="form" @submit="submitHandler" />
+    </div>
+    <div class="overflow-auto mt-4">
+      <pre class="text-xs">{{ widgetStore.stats }}</pre>
+    </div>
+
+    <div class="mt-auto text-xs text-gray-500">
+      <p class="flex">
+        <span class="mr-auto">WidgetComponent</span><span>{{ props.widget.id }}</span>
+      </p>
+    </div>
   </div>
 </template>
 

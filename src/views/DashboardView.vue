@@ -21,7 +21,6 @@ const formValues = ref({
   date: dashboardStore.date
 })
 function submitHandler() {
-  console.log('submitHandler')
   dashboardStore.date = formValues.value.date
 }
 
@@ -48,13 +47,10 @@ dashboardStore.fetchData()
     <div class="mt-6 mb-4">
       <button @click="addNewWidget">Add Widget</button>
     </div>
-    <div class="grid gap-4 grid-cols-2">
-      <WidgetComponent
-        v-for="widget in widgetsStore.sortedWidgets"
-        :key="widget.id"
-        :widget="widget"
-        @removeWidget="removeWidget(widget.id)"
-      />
-    </div>
+    <ul class="grid gap-4 grid-cols-2">
+      <li v-for="widget in widgetsStore.sortedWidgets" :key="widget.id">
+        <WidgetComponent :widget="widget" @removeWidget="removeWidget(widget.id)" />
+      </li>
+    </ul>
   </main>
 </template>

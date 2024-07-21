@@ -15,7 +15,8 @@ const submitHandler = () => {
   widgetStore.fetchStats({
     type: form.type.value,
     metric: form.metric.value,
-    groupBy: form.groupBy.value
+    groupBy: form.groupBy.value,
+    date: form.date.value
   })
 }
 
@@ -33,8 +34,7 @@ onMounted(async () => {
   // Local form state
   widgetStore.getFields.forEach((field) => {
     form[field.name] = {
-      ...field,
-      value: widgetStore.stats[field.name] || ''
+      ...field
     }
   })
 

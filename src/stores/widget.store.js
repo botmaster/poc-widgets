@@ -10,7 +10,8 @@ export function createDynamicWidgetStore(id) {
       stats: {},
       formSetup: {
         fields: []
-      }
+      },
+      userInputs: {}
     }),
     getters: {
       getFields() {
@@ -19,9 +20,9 @@ export function createDynamicWidgetStore(id) {
     },
     actions: {
       async fetchFormSetup() {
-        if (this.formSetup.fields.length) {
+        /*if (this.formSetup.fields.length) {
           return
-        }
+        }*/
 
         // Fetch all data in parallel
         //await Promise.all([this.fetchTypes(), this.fetchMetrics(), this.fetchGroupsBy()])
@@ -63,9 +64,10 @@ export function createDynamicWidgetStore(id) {
 
       fetchStats(payload) {
         // Store user input
-        this.formSetup.fields.forEach((field) => {
+        /*this.formSetup.fields.forEach((field) => {
           field.value = payload[field.name]
-        })
+        })*/
+        this.userInputs = { ...payload }
 
         // Fake real api call with a timeout
         return new Promise((resolve) =>

@@ -14,8 +14,10 @@ export const useDashboardStore = defineStore({
         this.types = response.data
       })*/
       // Fake real api call with a timeout
-      await new Promise((resolve) => setTimeout(resolve, Math.random() * 1000))
+      await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000))
+      const randmomOptionValue = Math.random().toString(36).substring(7)
       this.types = [
+        { label: `Random ${randmomOptionValue}`, value: randmomOptionValue },
         { label: 'Type 1', value: 'type1' },
         { label: 'Type 2', value: 'type2' }
       ]

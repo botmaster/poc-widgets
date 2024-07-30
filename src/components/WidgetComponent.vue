@@ -22,7 +22,8 @@ onMounted(async () => {
   // Local form state
   widgetStore.getFields.forEach((field) => {
     form[field.name] = {
-      ...field
+      ...field,
+      value: widgetStore.userInputs[field.name] ? widgetStore.userInputs[field.name] : field.value
     }
   })
 })
@@ -38,12 +39,12 @@ const submitHandler = () => {
 
 onUnmounted(() => {
   console.log('Unmounted', widgetStore.id)
-  widgetStore.$reset()
-  widgetStore.$dispose()
 })
 
 const clickRemoveHandler = () => {
   emit('removeWidget', widgetStore.id)
+  widgetStore.$reset()
+  widgetStore.$dispose()
 }
 </script>
 

@@ -25,6 +25,17 @@ export const useWidgetsStore = defineStore({
     removeWidget(widgetId) {
       // Filter out the widget by its unique identifier
       this.widgets = this.widgets.filter((w) => w.id !== widgetId)
+
+      // Get all localstorage keys who begin with `widget-${widgetId}`
+      const keys = Object.keys(localStorage).filter((key) => key.startsWith(`__persisted__widget-`))
+
+      // Remove localstorage keys === `__persisted__widget-${widgetId}-store`
+      keys.forEach((key) => {
+        if (key.startsWith(`__persisted__widget-${widgetId}`)) {
+          console.log('removing key', key)
+          localStorage.removeItem(key)
+        }
+      })
     }
   },
   persist: {

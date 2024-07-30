@@ -1,6 +1,6 @@
 <script setup>
 import { createDynamicWidgetStore } from '@/stores/widget.store.js'
-import { onMounted, reactive } from 'vue'
+import { onMounted, onUnmounted, reactive } from 'vue'
 import WidgetSelectionComponent from '@/components/WidgetSelectionComponent.vue'
 
 const props = defineProps({
@@ -35,6 +35,12 @@ const submitHandler = () => {
     date: form.date.value
   })
 }
+
+onUnmounted(() => {
+  console.log('Unmounted', widgetStore.id)
+  widgetStore.$reset()
+  widgetStore.$dispose()
+})
 
 const clickRemoveHandler = () => {
   emit('removeWidget', widgetStore.id)

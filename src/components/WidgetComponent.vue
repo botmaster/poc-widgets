@@ -42,9 +42,9 @@ onUnmounted(() => {
 })
 
 const clickRemoveHandler = () => {
-  emit('removeWidget', widgetStore.id)
   widgetStore.$reset()
   widgetStore.$dispose()
+  emit('removeWidget', widgetStore.id)
 }
 </script>
 
